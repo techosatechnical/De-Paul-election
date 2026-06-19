@@ -21,24 +21,24 @@ export default function NomineeButton({
       aria-label={`Select ${nominee.name} for ${categoryTitle}`}
     >
       {/* Left: photo + name */}
-      <div className="flex items-center gap-2 min-w-0">
+      <div className="flex items-center gap-3 min-w-0">
         {nominee.photo && nominee.photo !== "/loading.png" && (
           <img
             src={nominee.photo}
             alt={nominee.name}
-            className="w-7 h-7 rounded-full object-cover flex-shrink-0 ring-1 ring-white/50"
+            className="w-12 h-12 rounded-full object-cover flex-shrink-0 ring-2 ring-white/60 shadow-md"
           />
         )}
-        <span className="text-sm truncate">{nominee.name}</span>
+        <span className="text-base font-bold truncate">{nominee.name}</span>
       </div>
 
       {/* Right: logo + selection indicator */}
-      <div className="flex items-center gap-1.5 flex-shrink-0">
+      <div className="flex items-center gap-2 flex-shrink-0">
         {nominee.logo && nominee.logo !== "/loading.png" && (
           <img
             src={nominee.logo}
             alt={`${nominee.name} logo`}
-            className="w-6 h-6 rounded-full object-cover"
+            className="w-10 h-10 rounded-full object-cover ring-1 ring-white/40 shadow"
           />
         )}
         {/* Dot indicator */}

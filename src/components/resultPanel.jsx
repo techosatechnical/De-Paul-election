@@ -62,29 +62,29 @@ export default function ResultsPanel({ results, setShowResults, electionTitle })
                           }`}
                       >
                         {/* Left: rank + photo + name */}
-                        <div className="flex items-center gap-2 min-w-0">
-                          <span className="text-xs font-black opacity-60 w-4 flex-shrink-0">
+                        <div className="flex items-center gap-3 min-w-0">
+                          <span className="text-xs font-black opacity-70 w-5 flex-shrink-0">
                             {isWinner ? "🥇" : `#${idx + 1}`}
                           </span>
                           {nominee.photo && nominee.photo !== "/loading.png" && (
                             <Image
                               src={nominee.photo}
                               alt={nominee.name}
-                              width={28}
-                              height={28}
-                              className="rounded-full object-cover flex-shrink-0 ring-1 ring-white/50"
+                              width={48}
+                              height={48}
+                              className="rounded-full object-cover flex-shrink-0 ring-2 ring-white/60 shadow-md"
                             />
                           )}
                           {nominee.logo && nominee.logo !== "/loading.png" && (
                             <Image
                               src={nominee.logo}
                               alt={`${nominee.name} logo`}
-                              width={24}
-                              height={24}
-                              className="rounded-full object-cover flex-shrink-0"
+                              width={40}
+                              height={40}
+                              className="rounded-full object-cover flex-shrink-0 ring-1 ring-white/40 shadow"
                             />
                           )}
-                          <span className="truncate">{nominee.name}</span>
+                          <span className="truncate font-bold text-sm">{nominee.name}</span>
                         </div>
 
                         {/* Right: vote count */}
