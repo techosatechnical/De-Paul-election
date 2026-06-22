@@ -31,7 +31,17 @@ export default function VotingForm({
           gridTemplateRows: `repeat(${Math.ceil(categories.length / cols)}, minmax(0, 1fr))`,
         }}
       >
-        {categories.map((category, index) => (
+        {[...categories].sort((a, b) => {
+          const getOrder = (title) => {
+            const t = title.toLowerCase().replace(/[^a-z]/g, '');
+            if (t.includes("headboy")) return 1;
+            if (t.includes("headgirl")) return 2;
+            if (t.includes("sportsclub")) return 3;
+            if (t.includes("artsclub")) return 4;
+            return 5;
+          };
+          return getOrder(a.title) - getOrder(b.title);
+        }).map((category, index) => (
           <CategoryCard
             key={index}
             category={category}
