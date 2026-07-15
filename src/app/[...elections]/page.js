@@ -209,7 +209,7 @@ export default function ElectionScreen() {
   }
 
   return (
-    <div className="h-screen overflow-hidden bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 flex flex-col items-center p-3 text-white">
+    <div className="min-h-screen overflow-y-auto bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 flex flex-col items-center p-3 text-white">
       <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
       <ElectionHeader
         electionTitle={electionTitle}
