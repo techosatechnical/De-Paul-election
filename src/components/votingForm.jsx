@@ -15,28 +15,48 @@ export default function VotingForm({
       className="w-full flex flex-col max-w-6xl mx-auto"
     >
       {/* ── Category grid ────────────────────────────── */}
-      <div
-        className="grid gap-4 p-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-      >
-        {[...categories].sort((a, b) => {
+      {(() => {
+        const sorted = [...categories].sort((a, b) => {
           const getOrder = (title) => {
             const t = title.toLowerCase().replace(/[^a-z]/g, '');
-            if (t.includes("headboy")) return 1;
-            if (t.includes("headgirl")) return 2;
-            if (t.includes("sportsclub")) return 3;
-            if (t.includes("artsclub")) return 4;
-            return 5;
+            if (t.includes("upheadboy") || (t.includes("up") && t.includes("headboy"))) return 1;
+            if (t.includes("upheadgirl") || (t.includes("up") && t.includes("headgirl"))) return 2;
+            if (t.includes("highheadboy") || (t.includes("high") && t.includes("headboy"))) return 3;
+            if (t.includes("highheadgirl") || (t.includes("high") && t.includes("headgirl"))) return 4;
+            if (t.includes("artsconv") || t.includes("artsclub") || t.includes("arts")) return 5;
+            if (t.includes("magazine")) return 6;
+            if (t.includes("sport")) return 7;
+            if (t.includes("headboy")) return 8;
+            if (t.includes("headgirl")) return 9;
+            return 10;
           };
           return getOrder(a.title) - getOrder(b.title);
-        }).map((category, index) => (
-          <CategoryCard
-            key={index}
-            category={category}
-            selectedNominees={selectedNominees}
-            handleSelectNominee={handleSelectNominee}
-          />
-        ))}
-      </div>
+        });
+
+        const isOdd = sorted.length % 2 !== 0;
+
+        return (
+          <div className="grid grid-cols-2 gap-4 p-2">
+            {sorted.map((category, index) => {
+              const isLastAndAlone = isOdd && index === sorted.length - 1;
+              return (
+                <div
+                  key={index}
+                  className={isLastAndAlone ? "col-span-2 flex justify-center" : ""}
+                >
+                  <div className={isLastAndAlone ? "w-[calc(50%-0.5rem)]" : "w-full h-full"}>
+                    <CategoryCard
+                      category={category}
+                      selectedNominees={selectedNominees}
+                      handleSelectNominee={handleSelectNominee}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        );
+      })()}
 
       {/* ── Footer bar ───────────────────────────────── */}
       <div className="flex-shrink-0 flex items-center justify-between pt-3 px-1">
