@@ -89,16 +89,16 @@ export default function Home() {
             Shape your school’s tomorrow. Cast your vote for student council in
             seconds!
           </p>
-          <div className="flex space-x-4">
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto px-4 sm:px-0">
             <button
               onClick={() => handleAction("create")}
-              className="bg-yellow-400 text-gray-900 px-6 py-3 rounded-full font-semibold hover:bg-yellow-300 transition transform hover:scale-105"
+              className="bg-yellow-400 text-gray-900 px-6 py-3 rounded-full font-semibold hover:bg-yellow-300 transition transform hover:scale-105 w-full sm:w-auto"
             >
               Create New Election
             </button>
             <button
               onClick={() => handleAction("select")}
-              className="bg-green-400 text-gray-900 px-6 py-3 rounded-full font-semibold hover:bg-green-300 transition transform hover:scale-105"
+              className="bg-green-400 text-gray-900 px-6 py-3 rounded-full font-semibold hover:bg-green-300 transition transform hover:scale-105 w-full sm:w-auto"
             >
               Select Existing Election
             </button>

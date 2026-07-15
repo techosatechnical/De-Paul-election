@@ -8,14 +8,12 @@ function getGridCols(count) {
 }
 
 export default function ResultsPanel({ results, setShowResults, electionTitle }) {
-  const cols = getGridCols(results.length);
-
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm p-4 animate-fade-in">
-      {/* Modal card — fits the screen, no scroll */}
+      {/* Modal card — fits the screen */}
       <div
-        className="flex flex-col bg-white/20 backdrop-blur-xl rounded-3xl border border-yellow-300/40 shadow-2xl overflow-hidden"
-        style={{ width: "100%", maxWidth: cols === 1 ? "480px" : cols === 2 ? "860px" : "1160px", maxHeight: "90vh" }}
+        className="flex flex-col bg-white/20 backdrop-blur-xl rounded-3xl border border-yellow-300/40 shadow-2xl overflow-hidden w-full max-w-6xl"
+        style={{ maxHeight: "90vh" }}
       >
         {/* ── Header ── */}
         <div className="flex-shrink-0 px-6 py-3 bg-white/10 border-b border-white/15 text-center">
@@ -26,11 +24,7 @@ export default function ResultsPanel({ results, setShowResults, electionTitle })
 
         {/* ── Results grid ── */}
         <div
-          className="flex-1 grid gap-4 p-4 overflow-hidden"
-          style={{
-            gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
-            gridTemplateRows: `repeat(${Math.ceil(results.length / cols)}, minmax(0, 1fr))`,
-          }}
+          className="flex-1 grid gap-4 p-4 overflow-y-auto grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
         >
           {results.map((category, index) => {
             const sorted = [...category.nominees].sort((a, b) => b.votes - a.votes);
@@ -48,21 +42,21 @@ export default function ResultsPanel({ results, setShowResults, electionTitle })
                   </h3>
                 </div>
 
-                {/* Nominee rows — fill remaining space evenly */}
-                <div className="flex-1 flex flex-col gap-2 p-3">
+                {/* Nominee rows */}
+                <div className="flex flex-col gap-2 p-3">
                   {sorted.map((nominee, idx) => {
                     const isWinner = nominee.name === winner.name;
                     return (
                       <div
                         key={idx}
-                        className={`flex-1 flex items-center justify-between gap-2 px-3 rounded-xl text-gray-900 font-semibold text-sm transition-all duration-200
+                        className={`flex items-center justify-between gap-2 px-3 py-2 rounded-xl text-gray-900 font-semibold text-sm transition-all duration-200 min-h-[44px]
                           ${isWinner
                             ? "bg-gradient-to-r from-yellow-400 to-orange-400 ring-2 ring-yellow-300 shadow-[0_0_12px_rgba(251,191,36,0.5)]"
                             : "bg-white/30 text-white"
                           }`}
                       >
                         {/* Left: rank + photo + name */}
-                        <div className="flex items-center gap-3 min-w-0">
+                        <div className="flex items-center gap-2 min-w-0 flex-1">
                           <span className="text-xs font-black opacity-70 w-5 flex-shrink-0">
                             {isWinner ? "🥇" : `#${idx + 1}`}
                           </span>
@@ -70,8 +64,8 @@ export default function ResultsPanel({ results, setShowResults, electionTitle })
                             <Image
                               src={nominee.photo}
                               alt={nominee.name}
-                              width={48}
-                              height={48}
+                              width={36}
+                              height={36}
                               className="rounded-full object-cover flex-shrink-0 ring-2 ring-white/60 shadow-md"
                             />
                           )}
@@ -79,12 +73,12 @@ export default function ResultsPanel({ results, setShowResults, electionTitle })
                             <Image
                               src={nominee.logo}
                               alt={`${nominee.name} logo`}
-                              width={40}
-                              height={40}
+                              width={32}
+                              height={32}
                               className="rounded-full object-cover flex-shrink-0 ring-1 ring-white/40 shadow"
                             />
                           )}
-                          <span className="truncate font-bold text-sm">{nominee.name}</span>
+                          <span className="truncate font-bold text-xs sm:text-sm">{nominee.name}</span>
                         </div>
 
                         {/* Right: vote count */}
