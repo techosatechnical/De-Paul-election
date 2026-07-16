@@ -474,10 +474,17 @@ export async function submitVotes(formData) {
       return { error: "Election not found" };
     }
 
-    // Validate categories
+    // Fetch all categories from Firestore
     const categoriesColRef = collection(db, "elections", electionTitle.toLowerCase(), "categories");
     const categoriesSnapshot = await getDocs(categoriesColRef);
-    const validCategories = categoriesSnapshot.docs.map((d) => d.data().title);
+    const allCategories = categoriesSnapshot.docs.map((d) => d.data().title);
+
+    // Exclude UP Head Boy and UP Head Girl (same logic as the client)
+    const validCategories = allCategories.filter((title) => {
+      const t = title.toLowerCase().replace(/[^a-z]/g, '');
+      return !(t.includes("upheadboy") || (t.includes("up") && t.includes("headboy")) ||
+               t.includes("upheadgirl") || (t.includes("up") && t.includes("headgirl")));
+    });
     const validCategoriesLower = validCategories.map((c) => c.toLowerCase());
 
     const invalidVotes = votes.filter(

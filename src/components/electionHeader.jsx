@@ -3,9 +3,11 @@ import { FaTrophy, FaEdit, FaTrash } from "react-icons/fa";
 export default function ElectionHeader({ electionTitle, setPasswordAction, setShowPasswordModal, handleDeleteElection }) {
   return (
     <div className="w-full max-w-6xl flex flex-wrap justify-between items-center mb-4 px-2 gap-2">
-      <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-center animate-fade-in flex-1 tracking-tight break-words min-w-0">
-        {electionTitle}
-      </h1>
+      <div className="flex flex-col items-center flex-1 min-w-0">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center animate-fade-in tracking-tight break-words text-yellow-300 drop-shadow-lg">
+          NEO DALE HIGH SCHOOL
+        </h1>
+      </div>
       <div className="flex space-x-2 flex-shrink-0">
         <button
           onClick={() => {

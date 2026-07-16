@@ -65,7 +65,12 @@ export default function ElectionScreen() {
           if (result.error) {
             toast.error("Failed to load election: " + result.error);
           } else {
-            setCategories(result.categories || []);
+            const filteredCategories = (result.categories || []).filter(cat => {
+              const t = cat.title.toLowerCase().replace(/[^a-z]/g, '');
+              return !(t.includes("upheadboy") || (t.includes("up") && t.includes("headboy")) ||
+                       t.includes("upheadgirl") || (t.includes("up") && t.includes("headgirl")));
+            });
+            setCategories(filteredCategories);
           }
         }
       } catch (error) {
@@ -162,7 +167,12 @@ export default function ElectionScreen() {
       try {
         const result = await getElectionWinners(electionTitle);
         if (result.results) {
-          const sortedResults = result.results.map((category) => ({
+          const filteredResults = result.results.filter(cat => {
+            const t = cat.title.toLowerCase().replace(/[^a-z]/g, '');
+            return !(t.includes("upheadboy") || (t.includes("up") && t.includes("headboy")) ||
+                     t.includes("upheadgirl") || (t.includes("up") && t.includes("headgirl")));
+          });
+          const sortedResults = filteredResults.map((category) => ({
             ...category,
             nominees: [...category.nominees].sort((a, b) =>
               a.name === category.winner
