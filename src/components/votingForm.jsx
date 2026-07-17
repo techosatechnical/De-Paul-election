@@ -12,7 +12,7 @@ export default function VotingForm({
   return (
     <form
       action={handleSubmit}
-      className="w-full flex flex-col max-w-6xl mx-auto"
+      className="w-full flex flex-col max-w-none px-4 md:px-8"
     >
       {/* ── Category grid ────────────────────────────── */}
       {(() => {
@@ -44,7 +44,7 @@ export default function VotingForm({
                   key={index}
                   className={isLastAndAlone ? "col-span-2 flex justify-center" : ""}
                 >
-                  <div className={isLastAndAlone ? "w-[calc(50%-0.5rem)]" : "w-full h-full"}>
+                  <div className="w-full h-full">
                     <CategoryCard
                       category={category}
                       selectedNominees={selectedNominees}

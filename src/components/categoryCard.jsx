@@ -11,7 +11,7 @@ export default function CategoryCard({ category, selectedNominees, handleSelectN
       </div>
 
       {/* Nominees */}
-      <div className="flex flex-col gap-2 p-3">
+      <div className="grid grid-cols-2 gap-2 p-3">
         {category.nominees.map((nominee, idx) => (
           <NomineeButton
             key={idx}
