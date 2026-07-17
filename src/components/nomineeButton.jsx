@@ -26,7 +26,7 @@ export default function NomineeButton({
           <img
             src={nominee.photo}
             alt={nominee.name}
-            className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover flex-shrink-0 ring-2 ring-white/60 shadow-md"
+            className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover object-top flex-shrink-0 ring-2 ring-white/60 shadow-md"
           />
         )}
         <span className="text-sm sm:text-base md:text-lg font-extrabold truncate">{nominee.name}</span>
@@ -38,7 +38,7 @@ export default function NomineeButton({
           <img
             src={nominee.logo}
             alt={`${nominee.name} logo`}
-            className="w-9 h-9 sm:w-11 sm:h-11 rounded-full object-cover ring-1 ring-white/40 shadow"
+            className="w-9 h-9 sm:w-11 sm:h-11 rounded-full object-cover object-top ring-1 ring-white/40 shadow"
           />
         )}
         {/* Dot indicator */}
