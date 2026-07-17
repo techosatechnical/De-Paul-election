@@ -29,11 +29,14 @@ export default function ResultsPanel({ results, setShowResults, electionTitle })
           {results.map((category, index) => {
             const sorted = [...category.nominees].sort((a, b) => b.votes - a.votes);
             const winner = sorted[0];
+            const isSingleCategory = results.length === 1;
 
             return (
               <div
                 key={index}
-                className="flex flex-col bg-white/15 border border-white/20 rounded-2xl overflow-hidden"
+                className={`flex flex-col bg-white/15 border border-white/20 rounded-2xl overflow-hidden ${
+                  isSingleCategory ? "col-span-full" : ""
+                }`}
               >
                 {/* Category title strip */}
                 <div className="flex-shrink-0 bg-white/10 px-4 py-1.5 border-b border-white/15">
@@ -43,7 +46,7 @@ export default function ResultsPanel({ results, setShowResults, electionTitle })
                 </div>
 
                 {/* Nominee rows */}
-                <div className="flex flex-col gap-2 p-3">
+                <div className={`grid gap-2 p-3 ${isSingleCategory ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1"}`}>
                   {sorted.map((nominee, idx) => {
                     const isWinner = nominee.name === winner.name;
                     return (

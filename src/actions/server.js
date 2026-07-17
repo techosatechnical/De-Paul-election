@@ -1,15 +1,15 @@
 "use server";
 
 import { db } from "@/firebase";
-import { 
-  collection, 
-  doc, 
-  getDoc, 
-  getDocs, 
-  setDoc, 
-  updateDoc, 
-  deleteDoc, 
-  runTransaction 
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+  updateDoc,
+  deleteDoc,
+  runTransaction
 } from "firebase/firestore";
 import { createClient } from "@supabase/supabase-js";
 import bcrypt from "bcrypt";
@@ -45,7 +45,7 @@ export async function getElection(electionTitle) {
       return { error: "Election not found" };
     }
     const electionData = electionDoc.data();
-    
+
     // Fetch categories subcollection
     const categoriesColRef = collection(db, "elections", electionTitle.toLowerCase(), "categories");
     const categoriesSnapshot = await getDocs(categoriesColRef);
@@ -55,11 +55,11 @@ export async function getElection(electionTitle) {
         title: data.title,
         nominees: Array.isArray(data.nominees)
           ? data.nominees.map((nominee) => ({
-              name: nominee.name,
-              photo: nominee.photo || null,
-              logo: nominee.logo || null,
-              votes: nominee.votes || 0,
-            }))
+            name: nominee.name,
+            photo: nominee.photo || null,
+            logo: nominee.logo || null,
+            votes: nominee.votes || 0,
+          }))
           : [],
       };
     });
@@ -483,7 +483,7 @@ export async function submitVotes(formData) {
     const validCategories = allCategories.filter((title) => {
       const t = title.toLowerCase().replace(/[^a-z]/g, '');
       return !(t.includes("upheadboy") || (t.includes("up") && t.includes("headboy")) ||
-               t.includes("upheadgirl") || (t.includes("up") && t.includes("headgirl")));
+        t.includes("upheadgirl") || (t.includes("up") && t.includes("headgirl")));
     });
     const validCategoriesLower = validCategories.map((c) => c.toLowerCase());
 
@@ -511,7 +511,7 @@ export async function submitVotes(formData) {
       const docRefs = votes.map((vote) =>
         doc(db, "elections", electionTitle.toLowerCase(), "categories", vote.categoryTitle.toLowerCase())
       );
-      
+
       const docSnaps = [];
       for (const ref of docRefs) {
         docSnaps.push(await transaction.get(ref));
@@ -556,9 +556,9 @@ export async function getVoterCount(electionTitle) {
     const totalVotes = categories.reduce((sum, category) => {
       const categoryVotes = Array.isArray(category.nominees)
         ? category.nominees.reduce(
-            (voteSum, nominee) => voteSum + (nominee.votes || 0),
-            0
-          )
+          (voteSum, nominee) => voteSum + (nominee.votes || 0),
+          0
+        )
         : 0;
       return sum + categoryVotes;
     }, 0);
